@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Case</title>
+
+</head>
+<body>
+
+<input type="file" id="fileInput">
+
+
+<script>
+
+    //====================================
+
+    console.log("result of question1 =");
+
+    findMissing = (ary1, ary2) => {
+
+        let array1 = [], diff = [];
+
+        for (let i = 0; i < ary1.length; i++) {
+            array1[ary1[i]] = true;
+        }
+        for (let j = 0; j < ary2.length; j++) {
+            if (array1[ary2[j]]) {
+                delete array1[ary2[j]];
+            } else {
+                array1[ary2[j]] = true;
+            }
+        }
+        for (let k in array1) {
+            diff.push(k);
+        }
+        return diff.reverse();
+    };
+
+    console.log(findMissing([4, 12, 9, 5, 6, 1], [4, 9, 12, 6]));
+
+
+    //=============================================================
+
+    console.log("result of question2 =");
+
+
+    arrayRotate = (arr, count) => {
+        count -= arr.length * Math.floor(count / arr.length);
+        arr.push.apply(arr, arr.splice(0, count));
+        return arr;
+    };
+    for (let i = 1; i <= 1; i++) {
+        arrayRotate([1, 2, 3, 4, 5, 6], i);
+    }
+
+    console.log(arrayRotate([1, 2, 3, 4, 5, 6], 1));
+
+
+    //===============================================================
+
+    console.log("result of question3 =");
+
+
+    let data_array = [];
+    let fileInput = document.getElementById('fileInput');
+    let fileDisplayArea = document.getElementById('fileDisplayArea');
+
+    fileInput.addEventListener('change', function (e) {
+        let file = fileInput.files[0];
+        let textType = /text.*/;
+
+        if (file.type.match(textType)) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                let content = reader.result.split(/\n/g);
+                data_array.push(content);
+                for (let i = 0; i <= data_array[0].length - 1; i++) {
+                    if (data_array[0][i].length <= 2) {
+                        delete data_array[0][i];
+                    }
+                }
+                console.log(data_array[0].sort());
+            };
+            reader.readAsText(file);
+        } else {
+            fileDisplayArea.innerText = "File not supported!"
+        }
+    });
+</script>
+
+</body>
+</html>
